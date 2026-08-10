@@ -24,6 +24,9 @@ No hay dependencias, gestor de paquetes ni proceso de compilación.
 
 ```text
 .
+├── assets/
+│   ├── css/                           # Estilos comunes y por página
+│   └── site.js                        # Navegación móvil accesible
 ├── index.html                         # Inicio
 ├── hacemos/index.html                 # Qué hacemos
 ├── nosotras/index.html                # Equipo
@@ -34,7 +37,7 @@ No hay dependencias, gestor de paquetes ni proceso de compilación.
 │   └── teatro-insurrecto/
 ├── category/                          # Listados por categoría
 └── wp-content/
-    ├── themes/fewer/                  # Estilos y fuentes locales
+    ├── themes/fewer/                  # Estilos base y fuentes WOFF2
     └── uploads/                       # Imágenes del sitio
 ```
 
