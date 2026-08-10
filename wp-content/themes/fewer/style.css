@@ -54,3 +54,49 @@ a {
 	text-decoration-thickness: .02em !important;
 	text-underline-offset: .25em;
 }
+
+/* Static replacement for the WordPress navigation module. */
+.wp-block-navigation__responsive-container-open,
+.wp-block-navigation__responsive-container-close {
+	display: none;
+}
+
+@media (max-width: 599px) {
+	html.has-modal-open {
+		overflow: hidden;
+	}
+
+	.wp-block-navigation__responsive-container-open {
+		display: flex;
+	}
+
+	.wp-block-navigation__responsive-container:not(.is-menu-open) {
+		display: none;
+	}
+
+	.wp-block-navigation__responsive-container.is-menu-open {
+		display: flex;
+		position: fixed;
+		inset: 0;
+		z-index: 100000;
+		overflow: auto;
+		padding: var(--wp--preset--spacing--50);
+	}
+
+	.wp-block-navigation__responsive-container.is-menu-open
+		.wp-block-navigation__responsive-container-close {
+		display: flex;
+		position: absolute;
+		top: var(--wp--preset--spacing--30);
+		right: var(--wp--preset--spacing--30);
+	}
+
+	.wp-block-navigation__responsive-container.is-menu-open
+		.wp-block-navigation__responsive-close,
+	.wp-block-navigation__responsive-container.is-menu-open
+		.wp-block-navigation__responsive-dialog,
+	.wp-block-navigation__responsive-container.is-menu-open
+		.wp-block-navigation__responsive-container-content {
+		width: 100%;
+	}
+}
