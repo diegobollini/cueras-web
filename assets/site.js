@@ -12,14 +12,29 @@
     const container = navigation.querySelector(
       '.wp-block-navigation__responsive-container',
     );
+    const desktopQuery = window.matchMedia('(min-width: 600px)');
 
     if (!openButton || !closeButton || !container) return;
 
-    const closeMenu = () => {
+    const syncAccessibilityState = () => {
+      const isOpen = container.classList.contains('is-menu-open');
+
+      if (desktopQuery.matches) {
+        container.removeAttribute('aria-hidden');
+      } else {
+        container.setAttribute('aria-hidden', String(!isOpen));
+      }
+    };
+
+    const closeMenu = ({ restoreFocus = false } = {}) => {
       container.classList.remove('is-menu-open', 'has-modal-open');
-      container.setAttribute('aria-hidden', 'true');
       openButton.setAttribute('aria-expanded', 'false');
       document.documentElement.classList.remove('has-modal-open');
+      syncAccessibilityState();
+
+      if (restoreFocus && !desktopQuery.matches) {
+        openButton.focus();
+      }
     };
 
     const openMenu = () => {
@@ -30,12 +45,23 @@
       closeButton.focus();
     };
 
+    const handleViewportChange = () => {
+      if (desktopQuery.matches) {
+        closeMenu();
+      } else {
+        syncAccessibilityState();
+      }
+    };
+
     openButton.setAttribute('aria-controls', container.id);
     openButton.setAttribute('aria-expanded', 'false');
-    container.setAttribute('aria-hidden', 'true');
+    syncAccessibilityState();
 
     openButton.addEventListener('click', openMenu);
-    closeButton.addEventListener('click', closeMenu);
+    closeButton.addEventListener('click', () => {
+      closeMenu({ restoreFocus: true });
+    });
+    desktopQuery.addEventListener('change', handleViewportChange);
     container.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
@@ -44,8 +70,7 @@
       if (!container.classList.contains('is-menu-open')) return;
 
       if (event.key === 'Escape') {
-        closeMenu();
-        openButton.focus();
+        closeMenu({ restoreFocus: true });
         return;
       }
 
