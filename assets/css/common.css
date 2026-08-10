@@ -36,6 +36,136 @@ img:is([sizes="auto" i], [sizes^="auto," i]) {
         box-sizing: border-box;
       }
 
+/* Navigation fallback shared by pages whose WordPress export omitted it. */
+.wp-block-navigation {
+        --navigation-layout-align: center;
+        --navigation-layout-direction: row;
+        --navigation-layout-justification-setting: flex-start;
+        --navigation-layout-justify: flex-start;
+        --navigation-layout-wrap: wrap;
+        position: relative;
+      }
+      .wp-block-navigation.items-justified-space-between {
+        --navigation-layout-justification-setting: space-between;
+        --navigation-layout-justify: space-between;
+      }
+      .wp-block-navigation ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .wp-block-navigation .wp-block-navigation-item {
+        align-items: center;
+        display: flex;
+        position: relative;
+      }
+      .wp-block-navigation :where(a) {
+        text-decoration: none;
+      }
+      .wp-block-navigation__container,
+      .wp-block-navigation__responsive-container-content {
+        align-items: var(--navigation-layout-align, initial);
+        display: flex;
+        flex-direction: var(--navigation-layout-direction, initial);
+        flex-wrap: var(--navigation-layout-wrap, wrap);
+        justify-content: var(--navigation-layout-justify, initial);
+      }
+      .wp-block-navigation__container {
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
+      }
+      .wp-block-navigation__container,
+      .wp-block-navigation__responsive-close,
+      .wp-block-navigation__responsive-container,
+      .wp-block-navigation__responsive-container-content,
+      .wp-block-navigation__responsive-dialog {
+        gap: inherit;
+      }
+      .wp-block-navigation__container:only-child,
+      .wp-block-page-list:only-child {
+        flex-grow: 1;
+      }
+      .wp-block-navigation__responsive-container {
+        background-color: inherit;
+        bottom: 0;
+        display: none;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+      }
+      .wp-block-navigation__responsive-container-close,
+      .wp-block-navigation__responsive-container-open {
+        background: transparent;
+        border: 0;
+        color: currentColor;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+      }
+      .wp-block-navigation__responsive-container-close svg,
+      .wp-block-navigation__responsive-container-open svg {
+        display: block;
+        fill: currentColor;
+        height: 24px;
+        width: 24px;
+      }
+      .wp-block-navigation__responsive-container-open {
+        display: flex;
+      }
+      .wp-block-navigation__responsive-close {
+        width: 100%;
+      }
+      .wp-block-navigation__responsive-dialog {
+        position: relative;
+      }
+      .wp-block-navigation__responsive-container-close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+      }
+      .wp-block-navigation__responsive-container.is-menu-open {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        padding: 1rem;
+        z-index: 100000;
+      }
+      .wp-block-navigation__responsive-container.is-menu-open
+        .wp-block-navigation__responsive-container-content {
+        align-items: var(--navigation-layout-justification-setting, inherit);
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-top: calc(2rem + 24px);
+      }
+      .wp-block-navigation__responsive-container.is-menu-open
+        :is(.wp-block-navigation__container, .wp-block-page-list) {
+        align-items: var(--navigation-layout-justification-setting, initial);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      @media (min-width: 600px) {
+        .wp-block-navigation__responsive-container:not(.hidden-by-default):not(
+            .is-menu-open
+          ) {
+          display: block;
+          position: relative;
+          width: 100%;
+          z-index: auto;
+        }
+        .wp-block-navigation__responsive-container:not(.hidden-by-default):not(
+            .is-menu-open
+          )
+          .wp-block-navigation__responsive-container-close,
+        .wp-block-navigation__responsive-container-open:not(.always-shown) {
+          display: none;
+        }
+      }
+
 .wp-block-columns {
         box-sizing: border-box;
         display: flex;
