@@ -9,7 +9,7 @@ de datos, un servidor de aplicaciones ni un CMS en producción.
 
 ## Sitio
 
-[cueras.com.ar](https://cueras.com.ar)
+[cueras.vercel.app](https://cueras.vercel.app)
 
 ## Tecnologías
 
